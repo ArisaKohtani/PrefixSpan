@@ -4,14 +4,18 @@ import copy
 
 
 def prefixSpan(a, minsup, DB):#最初は[]を渡す
-    print("now prefix search: ", a, "in data: ", DB)
+    print("now prefix search: ", a, "in data: ")
+    for p in DB:
+        print("    ",p)
     DBcopy = copy.deepcopy(DB)
     all_elem = [[1], [2], [3], [4], [5], [6], [7]]
     if (a == []): #aが最初の空[]だった場合
         for i in all_elem:
             a_dash = [i] #[[a]]...[[g]]
             if count_freq.count_freq(DB, a_dash) >= minsup:#例えば一回目では[[g]]は満たさず操作されない
-                print(a_dash, " is frequent in ", DB)
+                print(a_dash, " is frequent in ")
+                for p in DBcopy:
+                    print("    ",p)
                 print("so now making ",a_dash,"-projection." )
                 projected_DB = [postfix.postfix(DBcopy[0],a_dash),postfix.postfix(DBcopy[1],a_dash),
                                 postfix.postfix(DBcopy[2],a_dash),postfix.postfix(DBcopy[3],a_dash)]
