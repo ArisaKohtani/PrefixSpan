@@ -5,7 +5,7 @@ import copy
 
 def prefixSpan(a, minsup, DB):#最初は[]を渡す
     print("now prefix search: ", a, "in data: ", DB)
-    DBcopy = copy.deepcopy(DB)
+    
     all_elem = [[1], [2], [3], [4], [5], [6], [7]]
     if (a == []): #aが最初の空[]だった場合
         for i in all_elem:
@@ -46,6 +46,5 @@ def prefixSpan(a, minsup, DB):#最初は[]を渡す
                 projected_DB = [postfix.postfix(DB[0],alpha,DB),postfix.postfix(DB[1],alpha,DB),
                                 postfix.postfix(DB[2],alpha,DB),postfix.postfix(DB[3],alpha,DB)]
                 prefixSpan(alpha, minsup, projected_DB)
-    print("return", a)
-    DB = DBcopy
-    return
+
+    #return
