@@ -19,15 +19,16 @@ def prefixSpan(a, minsup, DB):#最初は[]を渡す
             a_dash = [[i]] #[[a]]...[[g]]
             prefixSpan(a_dash, minsup, postfix(DB, a_dash))#ここで再帰してa!=NULLになって頻出を抽出
     else:#最初以外でaが空じゃないとき
-        if count_freq(DB, a) >= minsup:#一回目では[[g]]は満たさず操作されない
-            a_dash = a
+        if count_freq(DB, a) >= minsup:#例えば一回目では[[g]]は満たさず操作されない
+            a_dash = a #.appendは値が変わってしまうからa_dashに値をコピー
             #[(ab)], [(ac)]... iを最後のアイテム集合に加える
             for i in all_elem:
-                a_dash[-1].append(i[0]) #[[a]]のとき、[[a,a]]
-                print(a_dash)
-                prefixSpan(a_dash, minsup, postfix(DB, a_dash))
+                if a_dash[-1][0] < i[0]: #前に追加した要素より辞書順で後である(数字が大きい)アイテムのみ加える
+                    a_dash[-1].append(i[0]) #[[a]]のとき、[[a,a]]
+                    print(a_dash)
+                    prefixSpan(a_dash, minsup, postfix(DB, a_dash))
             #[a,a], [a,b]... 系列を最後に加える
-            a_dash = a
+            a_dash = a #.appendは値が変わってしまうからa_dashに値をコピー
             for i in all_elem:
                 a_dash.append[i] #[i]は系列で、系列同士を合体して[[a],[a]]
                 print(a_dash)
