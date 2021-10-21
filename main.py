@@ -1,5 +1,5 @@
-from del_by_freq import del_by_freq
-from del_by_freq import del_by_freq
+import prefixSpan
+
 minsup = 2 #input("minsup:")
 
 #a~g → 1~7で表現  _は0
@@ -10,7 +10,4 @@ S4 = [ [5], [7], [1,6], [3], [2], [3] ]
 DB = [S1, S2, S3, S4]
 
 
-
-
-
-
+prefixSpan.prefixSpan([], minsup, DB)
