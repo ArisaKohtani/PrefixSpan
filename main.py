@@ -1,3 +1,8 @@
+import count_freq
+import del_elem_in_ptn
+import postfix
+
+
 from del_by_freq import del_by_freq
 from del_by_freq import del_by_freq
 minsup = 2 #input("minsup:")
