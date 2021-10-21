@@ -1,5 +1,6 @@
 import itertools
 import numpy as np
+from del_elem_in_ptn import del_elem_in_ptn
 
 minsup = 2 #input("minsup:")#
 
@@ -32,3 +33,9 @@ for i in range(len(counts[0])):
     if counts[1][i] < minsup:
         del_elements.append(counts[0][i])
 #print(del_elements)
+
+#登場頻度がminsup未満の要素の削除
+#DB[3] = del_by_freq(7, DB[3])
+for i in range(len(del_elements)):
+    for j in range(len(DB)):
+        DB[j] = del_elem_in_ptn(del_elements[i], DB[j])

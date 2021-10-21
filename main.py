@@ -13,8 +13,4 @@ DB = [S1, S2, S3, S4]
 
 
 
-#登場頻度がminsup未満の要素の削除
-#DB[3] = del_by_freq(7, DB[3])
-for i in range(len(del_elements)):
-    for j in range(len(DB)):
-        DB[j] = del_elem_in_ptn(del_elements[i], DB[j])
+
