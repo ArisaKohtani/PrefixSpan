@@ -1,6 +1,7 @@
 import count_freq
 import del_elem_in_ptn
 import postfix
+import prefixSpan
 
 
 from del_by_freq import del_by_freq
