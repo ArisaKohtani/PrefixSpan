@@ -10,13 +10,13 @@ DB = [S1, S2, S3, S4]
 
 
 def prefixSpan(a, minsup, DB):#最初は[]を渡す
-    freq = frequent(minsup, DB) #頻出要素[[a] [b] [c] ... [f]]
-    for i in freq: #[a]...[f]
-        if (a == []): #aが最初の空[]だった場合
-            a_dash = [[i]] #[[a]]...[[f]]
-            print(a_dash)
-            prefixSpan(a_dash, minsup, postfix(DB, a_dash))
-        else:#最初以外でaが空じゃないとき
+    if (a == []): #aが最初の空[]だった場合
+        all_elem = [[1], [2], [3], [4], [5], [6], [7]]
+        for i in all_elem:
+            a_dash = [[i]] #[[a]]...[[g]]
+            prefixSpan(a_dash, minsup, postfix(DB, a_dash))#ここで再帰してa!=NULLになって頻出を抽出
+    else:#最初以外でaが空じゃないとき
+        if count_freq(DB, a) >= minsup:
             a_dash = a
             #[(ab)], [(ac)]... iを最後のアイテム集合に加える
             a_dash[-1].append(i[0]) #[[a]]のとき、[[a,a]]
@@ -28,3 +28,4 @@ def prefixSpan(a, minsup, DB):#最初は[]を渡す
             print(a_dash)
             prefixSpan(a_dash, minsup, postfix(DB, a_dash))
     
+    return
