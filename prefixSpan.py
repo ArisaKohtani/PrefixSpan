@@ -10,9 +10,11 @@ def prefixSpan(a, minsup, DB, ptn):#最初は[]を渡す, ptnはsequential patte
     DBcopy = copy.deepcopy(DB)
     all_elem = [[1], [2], [3], [4], [5], [6], [7]]
     if (a == []): #aが最初の空[]だった場合
-        for i in [[1]]:#all_elem:
+        ######## ↓ここを1~7のそれぞれのみにすることで<x>-projectedDBが生成できる
+        for i in all_elem:
             a_dash = [i] #[[a]]...[[g]]
-            if count_freq.count_freq(DB, a_dash) >= minsup:#例えば一回目では[[g]]は満たさず操作されない
+            DBcopy = copy.deepcopy(DB)
+            if count_freq.count_freq(DBcopy, a_dash) >= minsup:#例えば一回目では[[g]]は満たさず操作されない
                 print(a_dash, " is frequent in ")
                 for p in DBcopy:
                     print("    ",p)
@@ -48,6 +50,9 @@ def prefixSpan(a, minsup, DB, ptn):#最初は[]を渡す, ptnはsequential patte
 
             for alpha in frequents:#頻出なものにprefixSpanかける
                 print("now making ",alpha,"-projection." )
+                DBcopy = copy.deepcopy(DB)
+                for p in DBcopy:
+                    print("    ", p)
                 projected_DB = [postfix.postfix(DBcopy[0],alpha),postfix.postfix(DBcopy[1],alpha),
                                 postfix.postfix(DBcopy[2],alpha),postfix.postfix(DBcopy[3],alpha)]
                 prefixSpan(alpha, minsup, projected_DB, ptn)

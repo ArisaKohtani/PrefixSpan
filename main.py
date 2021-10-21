@@ -11,5 +11,7 @@ DB = [S1, S2, S3, S4]
 
 sequential_patterns = []
 prefixSpan.prefixSpan([], minsup, DB, sequential_patterns)
-print("sequential_patterns:",sequential_patterns)
+print("sequential_patterns are")
+for i in sequential_patterns:
+    print("    ",i)
 #prefixSpan.prefixSpan([], minsup, DB)
