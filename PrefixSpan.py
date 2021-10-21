@@ -37,12 +37,12 @@ def prefixSpan(a, minsup, DB):#最初は[]を渡す
             for a in extended:
                 times = count_freq.count_freq(DB, a)
                 print(a, ":",times)
-                if times >= minsup:#拡張候補から頻出なものを探して再帰的にprefix実装
+                if times >= minsup:#拡張候補から頻出なものを探してfrequentsにまとめておく
                         print(a, " is frequent")
                         freqents.append(a)
 
 
-            for alpha in freqents:
+            for alpha in freqents:#頻出なものにprefixSpanかける
                 print("now making ",alpha,"-projection." )
                 projected_DB = [postfix.postfix(DB[0],alpha,DB),postfix.postfix(DB[1],alpha,DB),
                                 postfix.postfix(DB[2],alpha,DB),postfix.postfix(DB[3],alpha,DB)]
