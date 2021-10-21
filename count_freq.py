@@ -6,7 +6,7 @@ def count_freq(DB,a): #DB:捜索するデータベース　a:頻度をカウン�
         for i in DB: #DB内全てのデータベース(S1-S4)において
             if (i != None):#空ではない
                 for j in i :#S1-S4それぞれの中のアイテム集合において
-                    if ((0 not in j) and (a[-1][0] in j)): #"_"を含まないアイテム集合があったら
+                    if ((0 not in j) and (a[-1][0] in j)): #"_"を含まないアイテム集合にあったら
                         count += 1
                         break
         return count

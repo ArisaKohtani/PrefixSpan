@@ -43,7 +43,8 @@ def postfix(a,b,DB):#a is alpha, b is beta and DB is projected DataBase.
             break
 
         if r == -1:
-            return print("postfix is empty!")#ret 0 or ret [] ?
+            #return print("postfix is empty!")#ret 0 or ret [] ?
+            return
         else:
             del a[0:r]
             if len(a[0]) == 1:
@@ -55,9 +56,11 @@ def postfix(a,b,DB):#a is alpha, b is beta and DB is projected DataBase.
                 a[0][0] = 0
 
         if len(a)==1 and len(a[0])==1 and a[0][0]==0:
-            return print("postfix is empty!")
+            #return print("postfix is empty!")
+            return
         if not a:
-            return print("postfix is empty!")
+            #return print("postfix is empty!")
+            return
         return a
     
     #b = <(ab)>
@@ -110,11 +113,12 @@ def postfix(a,b,DB):#a is alpha, b is beta and DB is projected DataBase.
 
         #emptyパターン
         if len(a)==1 and len(a[0])==1 and a[0][0]==0:
-            return print("postfix is empty!")
+            #return print("postfix is empty!")
+            return
         if not a:
-            return print("postfix is empty!")
+            #return print("postfix is empty!")
+            return
 
-        print("postfix answer is ",a)
         return a
 
 '''
