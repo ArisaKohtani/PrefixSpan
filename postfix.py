@@ -19,7 +19,7 @@ in1 = S2#
 in2 = [[1]]#
 '''
 
-#generate postfix
+#generate postfix 
 def postfix(a,b):#a is alpha, b is beta and DB is projected DataBase.
     #b = <a b>
     if len(b[-1]) == 1:

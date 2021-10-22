@@ -1,6 +1,6 @@
-import count_freq
-import postfix
+from count_freq import count_freq
 import copy
+from project import project
 
 
 def prefixSpan(a, minsup, DB, ptn):#最初は[]を渡す, ptnはsequential patternsを記録する配列
@@ -13,14 +13,12 @@ def prefixSpan(a, minsup, DB, ptn):#最初は[]を渡す, ptnはsequential patte
         for i in all_elem:
             a_dash = [i] #[[a]]...[[g]]
             DBcopy = copy.deepcopy(DB)
-            if count_freq.count_freq(DBcopy, a_dash) >= minsup:#例えば一回目では[[g]]は満たさず操作されない
+            if count_freq(DBcopy, a_dash) >= minsup:#例えば一回目では[[g]]は満たさず操作されない
                 print(a_dash, " is frequent in ")
                 for p in DBcopy:
                     print("    ",p)
                 print("so now making ",a_dash,"-projection." )
-                projected_DB = [postfix.postfix(DBcopy[0],a_dash),postfix.postfix(DBcopy[1],a_dash),
-                                postfix.postfix(DBcopy[2],a_dash),postfix.postfix(DBcopy[3],a_dash)]
-                prefixSpan(a_dash, minsup, projected_DB, ptn)#ここで再帰してa!=NULLになって頻出を抽出
+                prefixSpan(a_dash, minsup, project(DBcopy,a_dash), ptn)#ここで再帰してa!=NULLになって頻出を抽出
                 ptn += a_dash#minsupを超える系列を追加
     else:#最初以外でaが空じゃないとき
             extended = [] #拡張する配列一覧
@@ -36,10 +34,9 @@ def prefixSpan(a, minsup, DB, ptn):#最初は[]を渡す, ptnはsequential patte
                 a_dash.append(i) #[i]は系列で、系列同士を合体して[[a],[a]]
                 extended.append(a_dash)
 
-            print("extended patterns are:", extended)
             frequents = []
             for a in extended:
-                times = count_freq.count_freq(DB, a)
+                times = count_freq(DB, a)
                 print(a, ":",times)
                 if times >= minsup:#拡張候補から頻出なものを探してfrequentsにまとめておく
                         print(a, " is frequent")
@@ -51,8 +48,7 @@ def prefixSpan(a, minsup, DB, ptn):#最初は[]を渡す, ptnはsequential patte
                 DBcopy = copy.deepcopy(DB)
                 for p in DBcopy:
                     print("    ", p)
-                projected_DB = [postfix.postfix(DBcopy[0],alpha),postfix.postfix(DBcopy[1],alpha),
-                                postfix.postfix(DBcopy[2],alpha),postfix.postfix(DBcopy[3],alpha)]
-                prefixSpan(alpha, minsup, projected_DB, ptn)
+        
+                prefixSpan(alpha, minsup, project(DBcopy,alpha), ptn)
             ptn += frequents#minsupを超える系列を追加
     return
