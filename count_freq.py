@@ -1,41 +1,32 @@
-import itertools
-import numpy as np
-from del_elem_in_ptn import del_elem_in_ptn
-
-minsup = 2 #input("minsup:")#
-
-#a~g → 1~7で表現  _は0
-S1 = [ [1], [1,2,3], [1,3], [4], [3,6] ]#
-S2 = [ [1,4], [3], [2,3], [1,5] ]#
-S3 = [ [5,6], [1,2], [4,6], [3], [2] ]#
-S4 = [ [5], [7], [1,6], [3], [2], [3] ]#
-DB = [S1, S2, S3, S4]#
-
-counts = [[1,2,3,4,5,6,7],
-          [0,0,0,0,0,0,0]]#入力値によって生成するように要変更
-
-#def count_freq(DB,freq_pattern):#freq_patternは頻度をカウントしたい系列パターン配列
-
-
-
-#登場頻度カウント
-for i in range(len(DB)):
-    ary = list(itertools.chain.from_iterable(DB[i]))
-    for j in range(len(counts[0])):
-        if j+1 in ary:
-            counts[1][j] += 1
-#print(list(itertools.chain.from_iterable(DB[0])))
-#print(counts)
-
-#登場頻度がminsup未満の要素の検索
-del_elements = []
-for i in range(len(counts[0])):
-    if counts[1][i] < minsup:
-        del_elements.append(counts[0][i])
-#print(del_elements)
-
-#登場頻度がminsup未満の要素の削除
-#DB[3] = del_by_freq(7, DB[3])
-for i in range(len(del_elements)):
-    for j in range(len(DB)):
-        DB[j] = del_elem_in_ptn(del_elements[i], DB[j])
+def count_freq(DB,a): #DB:捜索するデータベース　a:頻度をカウントする系列パターン
+    count = 0
+    #登場頻度カウント
+    #最後が単品の系列だった場合、"_"を含まないアイテム集合に最後の要素があればよい
+    if (len(a[-1]) == 1) :
+        for i in DB: #DB内全てのデータベース(S1-S4)において
+            if (i != None):#空ではない
+                for j in i :#S1-S4それぞれの中のアイテム集合において
+                    if ((0 not in j) and (a[-1][0] in j)): #"_"を含まないアイテム集合にあったら
+                        count += 1
+                        break
+        return count
+    #最後がアイテム集合だった場合、最後の要素が"_"を含むアイテム中に含まれるか、もしくはそのアイテム集合含むアイテム集合があるかを調べる
+    else:
+        for i in DB: #DB内全てのデータベース(S1-S4)において
+            if (i != None):#空ではない
+                for j in i :#S1-S4それぞれの中のアイテム集合において
+                    if (0 in j) and (a[-1][-1] in j):#"_"を含むアイテム集合にあったら
+                        print(i)
+                        count += 1
+                        break
+                    else:
+                        flag = 0
+                        for k in range(len(a[-1])):
+                            flag = 1
+                            if a[-1][k] not in j:
+                                flag = 0
+                                break
+                        if flag == 1:
+                            count += 1
+                            break
+        return count
