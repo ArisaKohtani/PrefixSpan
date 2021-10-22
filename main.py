@@ -14,4 +14,4 @@ prefixSpan.prefixSpan([], minsup, DB, sequential_patterns)
 print("sequential_patterns are")
 for i in sequential_patterns:
     print("    ",i)
-#prefixSpan.prefixSpan([], minsup, DB)
+

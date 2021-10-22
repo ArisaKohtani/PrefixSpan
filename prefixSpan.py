@@ -32,7 +32,6 @@ def prefixSpan(a, minsup, DB, ptn):#最初は[]を渡す, ptnはsequential patte
                     a_dash[-1].append(i[0]) #[[a]]のとき、[[a,a]]
                     extended.append(a_dash)
             #[a,a], [a,b]... 系列を最後に加える
-            #a_dash = a #.appendは値が変わってしまうからa_dashに値をコピー
             for i in all_elem:
                 a_dash = copy.deepcopy(a)#.appendは値が変わってしまうからa_dashに値をコピー
                 a_dash.append(i) #[i]は系列で、系列同士を合体して[[a],[a]]
@@ -57,6 +56,4 @@ def prefixSpan(a, minsup, DB, ptn):#最初は[]を渡す, ptnはsequential patte
                                 postfix.postfix(DBcopy[2],alpha),postfix.postfix(DBcopy[3],alpha)]
                 prefixSpan(alpha, minsup, projected_DB, ptn)
             ptn += frequents#minsupを超える系列を追加
-    #print("return", a)
-    DB = DBcopy
     return
