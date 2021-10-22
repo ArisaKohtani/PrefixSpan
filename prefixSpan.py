@@ -7,7 +7,6 @@ def prefixSpan(a, minsup, DB, ptn):#最初は[]を渡す, ptnはsequential patte
     print("now prefix search: ", a, "in data: ")
     for p in DB:
         print("    ",p)
-    DBcopy = copy.deepcopy(DB)
     all_elem = [[1], [2], [3], [4], [5], [6], [7]]
     if (a == []): #aが最初の空[]だった場合
         ######## ↓ここを1~7のそれぞれのみにすることで<x>-projectedDBが生成できる
