@@ -4,29 +4,23 @@ import numpy as np
 
 '''
 minsup = 2 #input("minsup:")#
-
 #a~g → 1~7で表現  _は0
-
 S1 = [ [1], [1,2,3], [1,3], [4], [3,6] ]#
 S2 = [ [1,4], [3], [2,3], [1,5] ]#
 S3 = [ [5,6], [1,2], [4,6], [3], [2] ]#
 S4 = [ [5], [7], [1,6], [3], [2], [3] ]#
-
 <a>-projected db
 S1 = [[1, 2, 3], [1, 3], [4], [3, 6]]
 S2 = [[0, 4], [3], [2, 3], [1, 5]]
 S3 = [[0, 2], [4, 6], [3], [2]]
 S4 = [[0, 6], [3], [2], [3]]
-
 DB = [S1, S2, S3, S4]
-
-
 in1 = S2#
 in2 = [[1]]#
 '''
 
 #generate postfix
-def postfix(a,b,DB):#a is alpha, b is beta and DB is projected DataBase.
+def postfix(a,b):#a is alpha, b is beta and DB is projected DataBase.
     #b = <a b>
     if len(b[len(b)-1]) == 1:
         r = l = -1
@@ -97,7 +91,7 @@ def postfix(a,b,DB):#a is alpha, b is beta and DB is projected DataBase.
 
         #配列処理
         if r == -1:
-            return print("postfix is empty!")#ret 0 or ret [] ?
+            return []
         else:
             del a[0:r]
             if len(a[0]) == 1:
