@@ -22,7 +22,7 @@ in2 = [[1]]#
 #generate postfix
 def postfix(a,b):#a is alpha, b is beta and DB is projected DataBase.
     #b = <a b>
-    if len(b[len(b)-1]) == 1:
+    if len(b[-1]) == 1:
         r = l = -1
         for i in range(len(a)):
             if 0 in a[i]:
@@ -47,6 +47,8 @@ def postfix(a,b):#a is alpha, b is beta and DB is projected DataBase.
             else:
                 del a[0][0:l]
                 a[0][0] = 0
+                if len(a[0]) == 1:
+                    del a[0]
 
         if len(a)==1 and len(a[0])==1 and a[0][0]==0:
             return []
