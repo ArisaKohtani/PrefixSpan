@@ -2,8 +2,8 @@ import prefixSpan
 
 minsup = int(input("enter minsup: "))
 
-f = open('genTest.data', 'r')
-#f = open('sample.data', 'r')
+#f = open('genTest.data', 'r')
+f = open('sample.data', 'r')
 data = f.readlines()
 f.close
 
