@@ -4,16 +4,11 @@ import numpy as np
 
 '''
 minsup = 2 #input("minsup:")#
-#a~g → 1~7で表現  _は0
-S1 = [ [1], [1,2,3], [1,3], [4], [3,6] ]#
-S2 = [ [1,4], [3], [2,3], [1,5] ]#
-S3 = [ [5,6], [1,2], [4,6], [3], [2] ]#
-S4 = [ [5], [7], [1,6], [3], [2], [3] ]#
-<a>-projected db
-S1 = [[1, 2, 3], [1, 3], [4], [3, 6]]
-S2 = [[0, 4], [3], [2, 3], [1, 5]]
-S3 = [[0, 2], [4, 6], [3], [2]]
-S4 = [[0, 6], [3], [2], [3]]
+#a~g → 0~6で表現  _は-1
+S1 = [ [0], [0,1,2], [0,2], [3], [2,5] ]
+S2 = [ [0,3], [2], [1,2], [0,4] ]
+S3 = [ [4,5], [0,1], [3,5], [2], [1] ]
+S4 = [ [4], [6], [0,5], [2], [1], [2] ]
 DB = [S1, S2, S3, S4]
 in1 = S2#
 in2 = [[1]]#
@@ -25,7 +20,7 @@ def postfix(a,b):#a is alpha, b is beta and DB is projected DataBase.
     if len(b[-1]) == 1:
         r = l = -1
         for i in range(len(a)):
-            if 0 in a[i]:
+            if -1 in a[i]:
                 continue
             for j in range(len(a[i])):
                 if a[i][j] == b[len(b)-1][0]:
@@ -43,14 +38,14 @@ def postfix(a,b):#a is alpha, b is beta and DB is projected DataBase.
             if len(a[0]) == 1:
                 del a[0]
             elif l == 0:
-                a[0][0] = 0
+                a[0][0] = -1
             else:
                 del a[0][0:l]
-                a[0][0] = 0
+                a[0][0] = -1
                 if len(a[0]) == 1:
                     del a[0]
 
-        if len(a)==1 and len(a[0])==1 and a[0][0]==0:
+        if len(a)==1 and len(a[0])==1 and a[0][0]==-1:
             return []
         if not a:
             return []
@@ -61,12 +56,12 @@ def postfix(a,b):#a is alpha, b is beta and DB is projected DataBase.
         x = b[len(b)-1][len(b[len(b)-1])-1]#アイテム集合の末尾
         r = l = -1
         for i in range(len(a)):
-            if 0 in a[i]:
+            if -1 in a[i]:
                 for j in range(len(a[i])):
                     if a[i][j] == x:
                         r = i
                         l = j
-                        print(r,l)
+                        '''print(r,l)'''
                         break
                 else:
                     continue
@@ -96,16 +91,16 @@ def postfix(a,b):#a is alpha, b is beta and DB is projected DataBase.
             if len(a[0]) == 1:
                 del a[0]
             elif l == 0:
-                a[0][0] = 0
+                a[0][0] = -1
             else:
                 del a[0][0:l]
                 if len(a[0]) == 1:
                     del a[0]
                 else:
-                    a[0][0] = 0
+                    a[0][0] = -1
 
         #emptyパターン
-        if len(a)==1 and len(a[0])==1 and a[0][0]==0:
+        if len(a)==1 and len(a[0])==1 and a[0][0]==-1:
             return []
         if not a:
             return []

@@ -1,26 +1,32 @@
 from count_freq import count_freq
 import copy
 from project import project
+from postfix import postfix
 
 
-def prefixSpan(a, minsup, DB, ptn):#最初は[]を渡す, ptnはsequential patternsを記録する配列
-    print("now prefix search: ", a, "in data: ")
+def prefixSpan(a, minsup, DB, ptn, all_elem):#最初は[]を渡す, ptnはsequential patternsを記録する配列
+    '''print("now prefix search: ", a, "in data: ")
     for p in DB:
-        print("    ",p)
-    all_elem = [[1], [2], [3], [4], [5], [6], [7]]
+        print("    ",p)'''
+    DBcopy = copy.deepcopy(DB)
+    #all_elem = [[1], [2], [3], [4], [5], [6], [7]]
     if (a == []): #aが最初の空[]だった場合
-        ######## ↓ここを1~7のそれぞれのみにすることで<x>-projectedDBが生成できる
+        ######## ↓ここをアイテム1つ(sampleでは1~7のそれぞれ)のみにすることで<x>-projectedDBが生成できる
         for i in all_elem:
             a_dash = [i] #[[a]]...[[g]]
             DBcopy = copy.deepcopy(DB)
             if count_freq(DBcopy, a_dash) >= minsup:#例えば一回目では[[g]]は満たさず操作されない
-                print(a_dash, " is frequent in ")
+                '''print(a_dash, " is frequent in ")
                 for p in DBcopy:
-                    print("    ",p)
+                    print("    ",p)'''
                 print("so now making ",a_dash,"-projection." )
-                prefixSpan(a_dash, minsup, project(DBcopy,a_dash), ptn)#ここで再帰してa!=NULLになって頻出を抽出
-                ptn += a_dash#minsupを超える系列を追加
+                projected_DB = DBcopy
+                for num in range(len(DBcopy)):
+                    projected_DB[num] = postfix(DBcopy[num],a_dash)
+                prefixSpan(a_dash, minsup, projected_DB, ptn, all_elem)#ここで再帰してa!=NULLになって頻出を抽出
+                ptn += [a_dash]#minsupを超える系列を追加
     else:#最初以外でaが空じゃないとき
+            DBcopy = copy.deepcopy(DB)
             extended = [] #拡張する配列一覧
             #[(ab)], [(ac)]... iを最後のアイテム集合に加える
             for i in all_elem:
@@ -34,21 +40,25 @@ def prefixSpan(a, minsup, DB, ptn):#最初は[]を渡す, ptnはsequential patte
                 a_dash.append(i) #[i]は系列で、系列同士を合体して[[a],[a]]
                 extended.append(a_dash)
 
+            '''print("extended patterns are:", extended)'''
             frequents = []
-            for a in extended:
-                times = count_freq(DB, a)
-                print(a, ":",times)
+            for beta in extended:
+                times = count_freq(DB, beta)
+                '''print(beta, ":",times)'''
                 if times >= minsup:#拡張候補から頻出なものを探してfrequentsにまとめておく
-                        print(a, " is frequent")
-                        frequents.append(a)
+                        '''print(beta, " is frequent")'''
+                        frequents.append(beta)
 
 
             for alpha in frequents:#頻出なものにprefixSpanかける
-                print("now making ",alpha,"-projection." )
+                #print("now making ",alpha,"-projection." )
                 DBcopy = copy.deepcopy(DB)
-                for p in DBcopy:
-                    print("    ", p)
-        
-                prefixSpan(alpha, minsup, project(DBcopy,alpha), ptn)
+                '''for p in DBcopy:
+                    print("    ", p)'''
+                projected_DB = DBcopy
+                #print("alpha",alpha)
+                for num in range(len(DBcopy)):
+                    projected_DB[num] = postfix(DBcopy[num],alpha)
+                prefixSpan(alpha, minsup, projected_DB, ptn, all_elem)
             ptn += frequents#minsupを超える系列を追加
     return
