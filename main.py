@@ -1,4 +1,5 @@
 from prefixSpan import prefixSpan
+from non_projected import non_projected
 
 minsup = int(input("enter minsup: "))
 
@@ -13,10 +14,8 @@ for line in range(len(data)):
     data[line] = [int(elem) for elem in data[line]]
 
 
-
 cnums = data[-1][0]
 maxelm = 0
-
 DB = []
 for i in range(cnums):
     DB.append([])
@@ -40,6 +39,7 @@ DB = [S1, S2, S3, S4]
 
 all_elem = [[0], [1], [2], [3], [4], [5], [6]]
 '''
+print(DB)
 
 sequential_patterns = []
 prefixSpan([], minsup, DB, sequential_patterns, all_elem)
@@ -47,3 +47,10 @@ print("sequential_patterns are")
 for i in sequential_patterns:
     print("    ",i)
 
+'''
+sequential_patterns = []
+non_projected([], minsup, DB, sequential_patterns, all_elem)
+print("sequential_patterns are")
+for i in sequential_patterns:
+    print("    ",i)
+'''
