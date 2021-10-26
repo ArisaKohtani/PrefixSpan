@@ -1,5 +1,5 @@
 from prefixSpan import prefixSpan
-from non_projected import non_projected
+from time import time
 
 minsup = int(input("enter minsup: "))
 
@@ -12,6 +12,7 @@ f.close
 for line in range(len(data)):
     data[line] = data[line].split()
     data[line] = [int(elem) for elem in data[line]]
+    print(data[line])
 
 
 cnums = data[-1][0]
@@ -19,6 +20,7 @@ maxelm = 0
 DB = []
 for i in range(cnums):
     DB.append([])
+
 
 for line in data:
     if line[-1] > maxelm:
@@ -42,15 +44,11 @@ all_elem = [[0], [1], [2], [3], [4], [5], [6]]
 print(DB)
 
 sequential_patterns = []
+start = time()
 prefixSpan([], minsup, DB, sequential_patterns, all_elem)
+end = time()
 print("sequential_patterns are")
 for i in sequential_patterns:
     print("    ",i)
+print("runtime : ", end - start)
 
-'''
-sequential_patterns = []
-non_projected([], minsup, DB, sequential_patterns, all_elem)
-print("sequential_patterns are")
-for i in sequential_patterns:
-    print("    ",i)
-'''

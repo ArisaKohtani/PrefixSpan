@@ -1,7 +1,3 @@
-import itertools
-import numpy as np
-
-
 #generate postfix 
 def postfix(a,b):#a is alpha, b is beta and DB is projected DataBase.
     #b = <a b>
