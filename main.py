@@ -1,10 +1,12 @@
 from prefixSpan import prefixSpan
 from time import time
 
-minsup = int(input("enter minsup: "))
+#minsup = int(input("enter minsup: "))
+minsups = [0.75,0.5,0.25]
+datasize = 10000
 
-#f = open('genTest.data', 'r')
-f = open('sample.data', 'r')
+#f = open('sample.data', 'r')
+f = open('10000-9.data', 'r')
 data = f.readlines()
 f.close
 
@@ -12,7 +14,6 @@ f.close
 for line in range(len(data)):
     data[line] = data[line].split()
     data[line] = [int(elem) for elem in data[line]]
-    print(data[line])
 
 
 cnums = data[-1][0]
@@ -20,7 +21,6 @@ maxelm = 0
 DB = []
 for i in range(cnums):
     DB.append([])
-
 
 for line in data:
     if line[-1] > maxelm:
@@ -32,23 +32,20 @@ for i in range(maxelm):
     all_elem.append([i])
 
 '''
-#a~g → 0~6で表現  _は-1
-S1 = [ [0], [0,1,2], [0,2], [3], [2,5] ]
-S2 = [ [0,3], [2], [1,2], [0,4] ]
-S3 = [ [4,5], [0,1], [3,5], [2], [1] ]
-S4 = [ [4], [6], [0,5], [2], [1], [2] ]
-DB = [S1, S2, S3, S4]
-
-all_elem = [[0], [1], [2], [3], [4], [5], [6]]
-'''
-print(DB)
-
-sequential_patterns = []
-start = time()
-prefixSpan([], minsup, DB, sequential_patterns, all_elem)
-end = time()
-print("sequential_patterns are")
-for i in sequential_patterns:
+for i in DB:
     print("    ",i)
-print("runtime : ", end - start)
+'''
+
+
+for i in range(len(minsups)):
+    minsup = minsups[i] * datasize
+    print("minsup : ", minsup)
+    sequential_patterns = []
+    start = time()
+    prefixSpan([], minsup, DB, sequential_patterns, all_elem)
+    end = time()
+    '''print("sequential_patterns are")
+    for i in sequential_patterns:
+        print("    ",i)'''
+    print("runtime : ", end - start)
 

@@ -40,7 +40,6 @@ def prefixSpan(a, minsup, DB, ptn, all_elem):#最初は[]を渡す, ptnはsequen
                 a_dash.append(i) #[i]は系列で、系列同士を合体して[[a],[a]]
                 extended.append(a_dash)
 
-            '''print("extended patterns are:", extended)'''
             frequents = []
             for beta in extended:
                 times = count_freq(DB, beta)
